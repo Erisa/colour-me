@@ -1,0 +1,33 @@
+{
+  "name": "ducksearch",
+  "description": "Search with DuckDuckGo on Discord",
+  "author": "Snazzah",
+  "main": "dist/worker.js",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "dev": "wrangler dev -e development",
+    "deploy": "wrangler publish",
+    "sync": "slash-up sync",
+    "sync:dev": "slash-up sync -e development",
+    "lint": "npx eslint --ext .ts .",
+    "lint:fix": "npx eslint --ext .ts . --fix"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "@typescript-eslint/parser": "^4.31.2",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "slash-create": "^5.3.0",
+    "slash-up": "^1.0.11",
+    "ts-loader": "^7.0.5",
+    "typescript": "^4.4.3",
+    "webpack": "^5.33.2",
+    "webpack-cli": "^3.3.12"
+  }
+}
