@@ -1,4 +1,5 @@
-import { SlashCommand, CommandOptionType, SlashCreator, CommandContext, ComponentContext } from 'slash-create';
+/* eslint-disable no-case-declarations */
+import { SlashCommand, CommandOptionType, SlashCreator, CommandContext, ComponentContext, RequestHandler, Creator } from 'slash-create';
 
 export default class BotCommand extends SlashCommand {
   constructor(creator: SlashCreator) {
@@ -93,10 +94,24 @@ export default class BotCommand extends SlashCommand {
         }
         break;
       case 'list':
-        roleList.forEach((listRole: string) => (embedcontent += ` <@&${listRole}>`));
+        let guildRoles = await this.creator.requestHandler.request('GET', `/guilds/${ctx.guildID}/roles`, true);
+        let guildRoleIds: string[] = [];
+
+        guildRoles.forEach((element: any) => guildRoleIds.push(element['id']));
+
+        roleList.forEach((listRole: string) => {
+          if (guildRoleIds.includes(listRole)){
+            embedcontent += ` <@&${listRole}>`;
+          } else {
+            roleList.splice(roleList.indexOf(listRole), 0)
+          }
+        });
+
+        // @ts-ignore
+        await kv.put(ctx.guildID, JSON.stringify(roleList));
 
         ctx.send({
-          content: 'These are all the configured roles. It might include deleted roles though.',
+          content: 'These are all the configured roles.',
           embeds: [
             {
               description: embedcontent
