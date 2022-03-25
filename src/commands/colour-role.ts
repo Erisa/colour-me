@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { SlashCommand, CommandOptionType, SlashCreator, CommandContext, ComponentContext, RequestHandler, Creator } from 'slash-create';
+import { SlashCommand, CommandOptionType, SlashCreator, CommandContext } from 'slash-create';
 
 export default class BotCommand extends SlashCommand {
   constructor(creator: SlashCreator) {
@@ -100,10 +100,10 @@ export default class BotCommand extends SlashCommand {
         guildRoles.forEach((element: any) => guildRoleIds.push(element['id']));
 
         roleList.forEach((listRole: string) => {
-          if (guildRoleIds.includes(listRole)){
+          if (guildRoleIds.includes(listRole)) {
             embedcontent += ` <@&${listRole}>`;
           } else {
-            roleList.splice(roleList.indexOf(listRole), 0)
+            roleList.splice(roleList.indexOf(listRole), 0);
           }
         });
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { SlashCommand, CommandOptionType, SlashCreator, CommandContext, ComponentContext, RequestHandler, Creator } from 'slash-create';
+import { SlashCommand, CommandOptionType, SlashCreator, CommandContext } from 'slash-create';
 
 export default class BotCommand extends SlashCommand {
   constructor(creator: SlashCreator) {
@@ -10,7 +10,7 @@ export default class BotCommand extends SlashCommand {
         {
           type: CommandOptionType.SUB_COMMAND,
           name: 'random',
-          description: 'Set a random colour',
+          description: 'Set a random colour'
         },
         {
           type: CommandOptionType.SUB_COMMAND,
@@ -102,17 +102,17 @@ export default class BotCommand extends SlashCommand {
         let hexcolour: string = ctx.options[ctx.subcommands[0]].hexcode;
         hexcolour = hexcolour.toLowerCase();
 
-        if (hexcolour[0] == '#' ){
+        if (hexcolour[0] == '#') {
           hexcolour = hexcolour.substring(1);
         }
 
-        if (!/^#?[0-9a-f]{6}$/i.test(hexcolour)){
+        if (!/^#?[0-9a-f]{6}$/i.test(hexcolour)) {
           return "That doesn't look like a hex code!";
         }
 
-        let colourInt: number = parseInt(hexcolour, 16);
+        const colourInt: number = parseInt(hexcolour, 16);
 
-        if (colourInt > 16777215){
+        if (colourInt > 16777215) {
           return 'The given hex code is invalid!';
         }
 
