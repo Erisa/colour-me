@@ -1,1 +1,1 @@
-export const commands = [require('./hello')];
+export const commands = [require('./colour-role')];

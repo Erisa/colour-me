@@ -8,7 +8,8 @@ module.exports = {
   globals: {
     DISCORD_APP_ID: true,
     DISCORD_PUBLIC_KEY: true,
-    DISCORD_BOT_TOKEN: true
+    DISCORD_BOT_TOKEN: true,
+    kv: true
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
