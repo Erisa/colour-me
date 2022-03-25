@@ -53,7 +53,7 @@ export default class BotCommand extends SlashCommand {
     })[0];
 
     if (!roleList.includes(topColouredRole['id'])) {
-      ctx.send({
+      await ctx.send({
         content: `Your highest coloured role is not enabled for colour-me!\nAn admin needs to use \`/colour-role add\` for <@&${topColouredRole['id']}>`,
         allowedMentions: {
           everyone: false,
@@ -81,7 +81,14 @@ export default class BotCommand extends SlashCommand {
     const botTopRole = guildRoles[guildRoles.indexOf(botTopRoleId)];
 
     if (botTopRole['position'] < topColouredRole['position']) {
-      return `I don't have permission to access your top coloured role!\nMake sure my top role is above <@&${topColouredRole['id']}>!`;
+      await ctx.send({
+        content: `I don't have permission to access your top coloured role!\nMake sure my top role is above <@&${topColouredRole['id']}>!`,
+        allowedMentions: {
+          everyone: false,
+          users: false,
+          roles: false
+        }
+      });
     }
 
     switch (ctx.subcommands[0]) {
@@ -97,7 +104,15 @@ export default class BotCommand extends SlashCommand {
           }
         );
 
-        return `Okay, I changed the colour of <@&${topColouredRole['id']}> to a random colour!`;
+        await ctx.send({
+          content: `Okay, I changed the colour of <@&${topColouredRole['id']}> to a random colour!`,
+          allowedMentions: {
+            everyone: false,
+            users: false,
+            roles: false
+          }
+        });
+        break;
       case 'colour':
         let hexcolour: string = ctx.options[ctx.subcommands[0]].hexcode;
         hexcolour = hexcolour.toLowerCase();
@@ -125,7 +140,15 @@ export default class BotCommand extends SlashCommand {
           }
         );
 
-        return `Okay, I changed the colour of <@&${topColouredRole['id']}> to \`${colourInt.toString(16)}\`!`;
+        await ctx.send({
+          content: `Okay, I changed the colour of <@&${topColouredRole['id']}> to \`${colourInt.toString(16)}\`!`,
+          allowedMentions: {
+            everyone: false,
+            users: false,
+            roles: false
+          }
+        });
+        break;
     }
   }
 }

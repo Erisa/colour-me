@@ -41,7 +41,7 @@ export default class BotCommand extends SlashCommand {
 
       **Links**:
       Privacy Policy: TBD
-      Support: TBD
+      Support: https://discord.gg/5eTcNpqPph
       Add the bot to your server: <https://discord.com/api/oauth2/authorize?client_id=702660517617205248&permissions=268435456&scope=bot%20applications.commands>
 
       Made with 💝 by [Erisa](https://erisa.uk) and the help of her wonderful friends.

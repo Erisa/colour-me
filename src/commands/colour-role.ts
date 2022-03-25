@@ -77,7 +77,14 @@ export default class BotCommand extends SlashCommand {
           roleList.push(roleId);
           // @ts-ignore
           await kv.put(ctx.guildID, JSON.stringify(roleList));
-          return `I've added <@&${roleId}> to the colour role list!`;
+          await ctx.send({
+            content: `I've added <@&${roleId}> to the colour role list!`,
+            allowedMentions: {
+              everyone: false,
+              users: false,
+              roles: false
+            }
+          });
         }
         break;
       case 'remove':
@@ -85,7 +92,14 @@ export default class BotCommand extends SlashCommand {
           roleList.splice(roleList.indexOf(roleId), 1);
           // @ts-ignore
           await kv.put(ctx.guildID, JSON.stringify(roleList));
-          return `I've removed <@&${roleId}> from the colour role list!`;
+          await ctx.send({
+            content: `I've removed <@&${roleId}> from the colour role list!`,
+            allowedMentions: {
+              everyone: false,
+              users: false,
+              roles: false
+            }
+          });
         } else {
           ctx.send({
             content: `The role <@&${roleId}> wasn't on the colour role list!`,
