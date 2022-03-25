@@ -1,1 +1,1 @@
-export const commands = [require('./colour-role'), require('./colour-me')];
+export const commands = [require('./colour-role'), require('./colour-me'), require('./about')];

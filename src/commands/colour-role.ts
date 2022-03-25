@@ -5,12 +5,12 @@ export default class BotCommand extends SlashCommand {
   constructor(creator: SlashCreator) {
     super(creator, {
       name: 'colour-role',
-      description: 'Colour role etc lala',
+      description: 'Manage the colour role list for this server!',
       options: [
         {
           type: CommandOptionType.SUB_COMMAND,
           name: 'add',
-          description: 'Add a colour role',
+          description: 'Add a colour role to the allowed list',
           options: [
             {
               name: 'role',
@@ -23,7 +23,7 @@ export default class BotCommand extends SlashCommand {
         {
           type: CommandOptionType.SUB_COMMAND,
           name: 'remove',
-          description: 'Remove a colour role',
+          description: 'Remove a colour role from the allowed list',
           options: [
             {
               name: 'role',
@@ -36,7 +36,7 @@ export default class BotCommand extends SlashCommand {
         {
           type: CommandOptionType.SUB_COMMAND,
           name: 'list',
-          description: 'Show all the colour roles.'
+          description: 'Show all the configured colour roles'
         }
       ]
     });

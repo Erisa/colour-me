@@ -5,7 +5,7 @@ export default class BotCommand extends SlashCommand {
   constructor(creator: SlashCreator) {
     super(creator, {
       name: 'colour-me',
-      description: 'Change the colour of your top role',
+      description: 'Change the colour of your role, if configured!',
       options: [
         {
           type: CommandOptionType.SUB_COMMAND,
@@ -66,6 +66,7 @@ export default class BotCommand extends SlashCommand {
 
     const botMember = await ctx.creator.requestHandler.request(
       'GET',
+      // @ts-ignore
       `/guilds/${ctx.guildID}/members/${DISCORD_APP_ID}`
     );
 
