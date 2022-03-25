@@ -3,7 +3,7 @@ import { SlashCommand, CommandOptionType, SlashCreator, CommandContext, Componen
 export default class BotCommand extends SlashCommand {
   constructor(creator: SlashCreator) {
     super(creator, {
-      name: 'color-role',
+      name: 'colour-role',
       description: 'Colour role etc lala',
       options: [
         {
@@ -38,7 +38,7 @@ export default class BotCommand extends SlashCommand {
           description: 'Show all the colour roles.'
         }
       ]
-    },);
+    });
   }
 
   async run(ctx: CommandContext) {
@@ -62,14 +62,14 @@ export default class BotCommand extends SlashCommand {
         case 'add':
           if (roleList.includes(roleId)){
             ctx.send({
-              content: `The role <@&${roleId}> is already in the color role list!`,
+              content: `The role <@&${roleId}> is already in the colour role list!`,
               ephemeral: true
             });
           } else {
             roleList.push(roleId);
             // @ts-ignore
             await kv.put(ctx.guildID, JSON.stringify(roleList));
-            return `I've added <@&${roleId}> to the color role list!`;
+            return `I've added <@&${roleId}> to the colour role list!`;
           }
           break;
         case 'remove':
@@ -77,10 +77,10 @@ export default class BotCommand extends SlashCommand {
             roleList.splice(roleList.indexOf(roleId), 1);
             // @ts-ignore
             await kv.put(ctx.guildID, JSON.stringify(roleList));
-            return `I've removed <@&${roleId}> from the color role list!`;
+            return `I've removed <@&${roleId}> from the colour role list!`;
           } else {
             ctx.send({
-              content: `The role <@&${roleId}> wasn't on the color role list!`,
+              content: `The role <@&${roleId}> wasn't on the colour role list!`,
               ephemeral: true
             });
           }
