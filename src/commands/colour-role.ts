@@ -94,8 +94,8 @@ export default class BotCommand extends SlashCommand {
         }
         break;
       case 'list':
-        let guildRoles = await this.creator.requestHandler.request('GET', `/guilds/${ctx.guildID}/roles`, true);
-        let guildRoleIds: string[] = [];
+        const guildRoles = await this.creator.requestHandler.request('GET', `/guilds/${ctx.guildID}/roles`, true);
+        const guildRoleIds: string[] = [];
 
         guildRoles.forEach((element: any) => guildRoleIds.push(element['id']));
 
