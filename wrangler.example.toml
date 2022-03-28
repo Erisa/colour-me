@@ -1,7 +1,13 @@
-name = "slash-create-worker"
+name = "colour-me-discord"
 type = "javascript"
-account_id = ""
 workers_dev = true
+
+vars = { DISCORD_PUBLIC_KEY = "aaaaaa", DISCORD_APP_ID = "702660517617205248" }
+
+kv_namespaces = [
+  { binding = "kv", id = "3fa45528f5da42cca249d355e318f0e4", preview_id = "3fa45528f5da42cca249d355e318f0e4" }
+]
+
 
 [build]
 command = "npm run build"
