@@ -4,3 +4,4 @@ wrangler.toml
 /.vscode/settings.json
 *.log
 *.env
+.mf/*
