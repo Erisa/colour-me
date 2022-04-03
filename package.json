@@ -1,7 +1,7 @@
 {
-  "name": "slash-create-worker-template",
-  "description": "A template for slash-create with Cloudflare Workers",
-  "author": "Snazzah",
+  "name": "colour-me",
+  "description": "Discord bot on Cloudflare Workers allowing users to change their role colour.",
+  "author": "Erisa A",
   "main": "dist/worker.js",
   "private": true,
   "scripts": {
