@@ -1,8 +1,8 @@
-name = "colour-me-discord"
+name = "slash-create-worker"
 type = "javascript"
 workers_dev = true
 
-vars = { DISCORD_PUBLIC_KEY = "aaaaaa", DISCORD_APP_ID = "702660517617205248" }
+vars = { DISCORD_PUBLIC_KEY = "6dbc62c05fbdb5e5c25180a5baaab5cb5ad367323b31497c077171dd6f967fc4", DISCORD_APP_ID = "702660517617205248" }
 
 kv_namespaces = [
   { binding = "kv", id = "3fa45528f5da42cca249d355e318f0e4", preview_id = "3fa45528f5da42cca249d355e318f0e4" }
