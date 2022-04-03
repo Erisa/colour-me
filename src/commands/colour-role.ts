@@ -77,8 +77,7 @@ export default class BotCommand extends SlashCommand {
           });
         } else {
           roleList.push(roleId);
-          // @ts-ignore
-          await kv.put(ctx.guildID, JSON.stringify(roleList));
+          await kv.put(ctx.guildID!, JSON.stringify(roleList));
           await ctx.send({
             content: `I've added <@&${roleId}> to the colour role list!`,
             allowedMentions: {
@@ -92,8 +91,7 @@ export default class BotCommand extends SlashCommand {
       case 'remove':
         if (roleList.includes(roleId)) {
           roleList.splice(roleList.indexOf(roleId), 1);
-          // @ts-ignore
-          await kv.put(ctx.guildID, JSON.stringify(roleList));
+          await kv.put(ctx.guildID!, JSON.stringify(roleList));
           await ctx.send({
             content: `I've removed <@&${roleId}> from the colour role list!`,
             allowedMentions: {
@@ -110,6 +108,11 @@ export default class BotCommand extends SlashCommand {
         }
         break;
       case 'list':
+        if (roleList.length === 0) {
+          ctx.send('There are no configured colour roles for this server.\nAdd some with `/colour-role add`!');
+          return;
+        }
+
         const guildRoles = await this.creator.requestHandler.request('GET', `/guilds/${ctx.guildID}/roles`, true);
         const guildRoleIds: string[] = [];
 
@@ -123,8 +126,7 @@ export default class BotCommand extends SlashCommand {
           }
         });
 
-        // @ts-ignore
-        await kv.put(ctx.guildID, JSON.stringify(roleList));
+        await kv.put(ctx.guildID!, JSON.stringify(roleList));
 
         ctx.send({
           content: 'These are all the configured roles.',
