@@ -1,6 +1,10 @@
 /* eslint-disable no-case-declarations */
 import { SlashCommand, CommandOptionType, SlashCreator, CommandContext } from 'slash-create';
 
+// eslint-disable-next-line no-undef
+declare const kv: KVNamespace;
+declare const DISCORD_APP_ID: string;
+
 export default class BotCommand extends SlashCommand {
   constructor(creator: SlashCreator) {
     super(creator, {
@@ -27,10 +31,8 @@ export default class BotCommand extends SlashCommand {
       ]
     });
   }
-
   async run(ctx: CommandContext) {
-    // @ts-ignore
-    const kvResult = await kv.get(ctx.guildID);
+    const kvResult = await kv.get(ctx.guildID!);
 
     let roleList: string[] = [];
 
@@ -66,7 +68,6 @@ export default class BotCommand extends SlashCommand {
 
     const botMember = await ctx.creator.requestHandler.request(
       'GET',
-      // @ts-ignore
       `/guilds/${ctx.guildID}/members/${DISCORD_APP_ID}`
     );
 

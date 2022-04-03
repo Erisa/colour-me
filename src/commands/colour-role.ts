@@ -1,6 +1,9 @@
 /* eslint-disable no-case-declarations */
 import { SlashCommand, CommandOptionType, SlashCreator, CommandContext } from 'slash-create';
 
+// eslint-disable-next-line no-undef
+declare const kv: KVNamespace;
+
 export default class BotCommand extends SlashCommand {
   constructor(creator: SlashCreator) {
     super(creator, {
@@ -55,8 +58,7 @@ export default class BotCommand extends SlashCommand {
 
     const roleId = ctx.options[ctx.subcommands[0]].role;
 
-    // @ts-ignore
-    const kvResult = await kv.get(ctx.guildID);
+    const kvResult = await kv.get(ctx.guildID!);
 
     let roleList: string[] = [];
 
