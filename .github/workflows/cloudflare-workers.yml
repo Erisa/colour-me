@@ -16,6 +16,7 @@ jobs:
         with:
           cmd: install --frozen-lockfile
       - uses: borales/actions-yarn@v2.3.0
+        name: Sync commands to Discord 
         env:
           DISCORD_APP_ID: ${{ secrets.DISCORD_APP_ID }}
           DISCORD_PUBLIC_KEY: ${{ secrets.DISCORD_PUBLIC_KEY }}
@@ -23,6 +24,7 @@ jobs:
         with:
           cmd: sync
       - uses: borales/actions-yarn@v2.3.0
+        name: Publish to Cloudflare
         env:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
         with:
