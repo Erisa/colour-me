@@ -95,12 +95,13 @@ wrangler secret put DISCORD_APP_ID
 wrangler secret put DISCORD_PUBLIC_KEY
 wrangler secret put DISCORD_BOT_TOKEN
 ```
-For a development environment, you can also include `COMMANDS_DEV_GUILD` for commands to be updated in that guild live
+
+For a development environment using wrangler, you can also include `DEVELOPMENT_GUILD_ID` for commands to be updated in that guild live
 ```sh
 wrangler secret put DISCORD_APP_ID -e development
 wrangler secret put DISCORD_PUBLIC_KEY -e development
 wrangler secret put DISCORD_BOT_TOKEN -e development
-wrangler secret put COMMANDS_DEV_GUILD -e development
+wrangler secret put DEVELOPMENT_GUILD_ID -e development
 ```
 > If an error occurs when trying to create a worker to put the secret in, create a worker manually in the dashboard and set the subdomain. It will be overwritten later.
 
