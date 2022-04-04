@@ -1,18 +1,24 @@
-import { Creator, RespondFunction, Server, SlashCreatorOptions, TransformedRequest } from 'slash-create';
-import { RequestHandler } from './util/requestHandler';
+import {
+  SlashCreator as Creator,
+  RespondFunction,
+  Server,
+  SlashCreatorOptions,
+  TransformedRequest
+} from 'slash-create';
+import { FetchRequestHandler } from './util/requestHandler';
 import { verify } from './util/verify';
 
+// @ts-expect-error doesn't like _onRequest
 export class SlashCreator extends Creator {
   /** The request handler for the creator */
-  // @ts-expect-error
-  readonly requestHandler: RequestHandler;
+  readonly requestHandler: FetchRequestHandler;
 
   /** @param opts The options for the creator */
   constructor(opts: SlashCreatorOptions) {
     // eslint-disable-next-line constructor-super
     super(opts);
-    // @ts-expect-error
-    this.requestHandler = new RequestHandler(this);
+    // @ts-ignore
+    this.requestHandler = new FetchRequestHandler(this);
   }
 
   /**

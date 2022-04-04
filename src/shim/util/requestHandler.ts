@@ -1,24 +1,11 @@
-import { API_BASE_URL, SlashCreator } from 'slash-create';
+import { RequestHandler } from 'slash-create';
+import { MultipartData } from './multipartData';
 
 /**
  * The request handler for REST requests.
  * @private
  */
-export class RequestHandler {
-  /** The base URL for all requests. */
-  readonly baseURL: string = API_BASE_URL;
-  /** The amount of time a request will timeout. */
-  readonly requestTimeout: number;
-
-  /** The creator that initialized the handler. */
-  private _creator: SlashCreator;
-
-  /** @param creator The instantiating creator. */
-  constructor(creator: SlashCreator) {
-    this._creator = creator;
-    this.requestTimeout = creator.options.requestTimeout as number;
-  }
-
+export class FetchRequestHandler extends RequestHandler {
   /**
    * Make an API request
    * @param method Uppercase HTTP method
@@ -27,16 +14,31 @@ export class RequestHandler {
    * @param body Request payload
    * @param file The file(s) to send
    */
-  async request(method: string, url: string, auth = true, body?: any, file?: any): Promise<any> { // eslint-disable-line @typescript-eslint/no-unused-vars, prettier/prettier
-    const headers: Record<string, string> = {};
+  async request(method: string, url: string, auth = true, body?: any, file?: any): Promise<any> {
+    // @ts-ignore
+    const creator = this._creator;
+    const headers: Record<string, string> = {
+      'User-Agent': this.userAgent,
+      'Accept-Encoding': 'gzip,deflate',
+      'X-RateLimit-Precision': 'millisecond'
+    };
     let data: any = body;
 
     if (auth) {
-      if (!this._creator.options.token) throw new Error('No token was set in the SlashCreator.');
-      headers.Authorization = this._creator.options.token;
+      if (!creator.options.token) throw new Error('No token was set in the SlashCreator.');
+      headers.Authorization = creator.options.token;
     }
 
-    if (body) {
+    if (file) {
+      if (Array.isArray(file) || file.file) {
+        data = new MultipartData();
+        headers['Content-Type'] = 'multipart/form-data; boundary=' + data.boundary;
+        if (Array.isArray(file)) for (const f of file) await (data as MultipartData).attach(f.name, f.file, f.name);
+        else await (data as MultipartData).attach(file.name, file.file, file.name);
+        if (body) await (data as MultipartData).attach('payload_json', JSON.stringify(body));
+        data = data.finish();
+      } else throw new Error('Invalid file object');
+    } else if (body) {
       if (method !== 'GET' && method !== 'DELETE') {
         data = JSON.stringify(body);
         headers['Content-Type'] = 'application/json';

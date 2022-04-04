@@ -1,0 +1,13 @@
+diff --git a/node_modules/slash-create/lib/structures/interfaces/messageInteraction.d.ts b/node_modules/slash-create/lib/structures/interfaces/messageInteraction.d.ts
+index 9ecfd7f..70ec168 100644
+--- a/node_modules/slash-create/lib/structures/interfaces/messageInteraction.d.ts
++++ b/node_modules/slash-create/lib/structures/interfaces/messageInteraction.d.ts
+@@ -153,7 +153,7 @@ export interface EditMessageOptions {
+ /** A file within {@link EditMessageOptions}. */
+ export interface MessageFile {
+     /** The attachment to send. */
+-    file: Buffer;
++    file: Blob | Uint8Array | File;
+     /** The name of the file. */
+     name: string;
+ }
