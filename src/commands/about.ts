@@ -57,7 +57,8 @@ export default class BotCommand extends SlashCommand {
           description: aboutText,
           color: 16738740
         }
-      ]
+      ],
+      ephemeral: true
     });
   }
 }
