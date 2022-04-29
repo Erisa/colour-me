@@ -2574,15 +2574,6 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-slash-create@^5.4.1:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/slash-create/-/slash-create-5.4.1.tgz#7dca47eb33ddbd951b369884946f02c8599f55e5"
-  integrity sha512-McloY5HPpixf7wQJpXZCg98zZ/l/Xtt7rmM+ewA/LPVrcLFYjg3gWkzGpulhhbs7yz0YFIwedeNr5ysczIX7AA==
-  dependencies:
-    eventemitter3 "^4.0.7"
-    lodash.isequal "^4.5.0"
-    tweetnacl "^1.0.3"
-
 slash-create@^5.5.2:
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/slash-create/-/slash-create-5.5.2.tgz#f07f3c31dd11683ad6a22663f82899cfbf9db834"
@@ -2592,10 +2583,10 @@ slash-create@^5.5.2:
     lodash.isequal "^4.5.0"
     tweetnacl "^1.0.3"
 
-slash-up@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/slash-up/-/slash-up-1.1.0.tgz#fd0670fe25c11ff1721a3f89c5d4092eccd415b7"
-  integrity sha512-kDcZ0EAZuw3gpizBWRZ4qnXDfhT+TjodcAb7eluJoO4Xoc+jhIf3mJgmyzKJi6w/gfn7cqJAV93deTN/fuiW/Q==
+slash-up@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/slash-up/-/slash-up-1.1.1.tgz#b3d7c398529475a3b3704f94ac073430de46de62"
+  integrity sha512-qD9WWbpEbh4Z6YxO+f6uNmY4V8H7PZTtLJUdMVF5WtoNNh6XQ2lXYNt5fQ58hAhaFXscNrg0z9xtW1VnJYnFxg==
   dependencies:
     ansi-colors "^4.1.1"
     common-tags "^1.8.2"
@@ -2605,7 +2596,7 @@ slash-up@^1.1.0:
     enquirer "^2.3.6"
     find-up "5.0.0"
     log-symbols "4.1.0"
-    slash-create "^5.4.1"
+    slash-create "^5.5.2"
     ts-node "^10.4.0"
     yargs "^17.3.0"
 
