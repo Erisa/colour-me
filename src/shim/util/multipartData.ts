@@ -9,7 +9,7 @@ export class MultipartData {
     if (data instanceof Blob || data instanceof File) {
       str += `\r\nContent-Type: ${data.type}`;
       data = new Uint8Array(await data.arrayBuffer());
-    } else if (data instanceof ArrayBuffer) {
+    } else if (data instanceof ArrayBuffer || data instanceof Uint8Array) {
       str += '\r\nContent-Type: application/octet-stream';
       data = new Uint8Array(data);
     } else if (typeof data === 'object') {
@@ -18,7 +18,7 @@ export class MultipartData {
     } else {
       data = encode('' + data);
     }
-    console.log(fieldName, data, filename);
+
     this.bufs.push(encode(str + '\r\n\r\n'));
     this.bufs.push(data);
   }

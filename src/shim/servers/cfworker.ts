@@ -1,4 +1,5 @@
 import { RespondFunction, Server, TransformedRequest } from 'slash-create';
+import { MultipartData } from '../util/multipartData';
 
 export type ServerRequestHandler = (treq: TransformedRequest, respond: RespondFunction, wait: (f: any) => void) => void;
 
@@ -29,15 +30,29 @@ export class CFWorkerServer extends Server {
               response: null
             },
             async (response) => {
-              resolve(
-                new Response(JSON.stringify(response.body), {
-                  status: response.status || 200,
-                  headers: {
-                    ...((response.headers || {}) as Record<string, string>),
-                    'content-type': 'application/json'
-                  }
-                })
-              );
+              if (response.files) {
+                const data = new MultipartData();
+                for (const file of response.files) await data.attach(file.name, file.file, file.name);
+                await data.attach('payload_json', JSON.stringify(response.body));
+                resolve(
+                  new Response(data.finish(), {
+                    status: response.status || 200,
+                    headers: {
+                      ...((response.headers || {}) as Record<string, string>),
+                      'content-type': 'multipart/form-data; boundary=' + data.boundary
+                    }
+                  })
+                );
+              } else
+                resolve(
+                  new Response(JSON.stringify(response.body), {
+                    status: response.status || 200,
+                    headers: {
+                      ...((response.headers || {}) as Record<string, string>),
+                      'content-type': 'application/json'
+                    }
+                  })
+                );
             },
             event.waitUntil.bind(event)
           );
