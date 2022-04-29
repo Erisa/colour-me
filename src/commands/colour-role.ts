@@ -9,6 +9,8 @@ export default class BotCommand extends SlashCommand {
     super(creator, {
       name: 'colour-role',
       description: 'Manage the colour role list for this server!',
+      defaultPermission: false,
+      requiredPermissions: ['MANAGE_ROLES'],
       options: [
         {
           type: CommandOptionType.SUB_COMMAND,
@@ -46,16 +48,6 @@ export default class BotCommand extends SlashCommand {
   }
 
   async run(ctx: CommandContext) {
-    if (!ctx.member?.permissions.has(1 << 28)) {
-      ctx.send({
-        content: 'You need `Manage Roles` permission to use this command.',
-        ephemeral: true
-      });
-      return;
-    }
-
-    console.info(ctx.options[ctx.subcommands[0]].role);
-
     const roleId = ctx.options[ctx.subcommands[0]].role;
 
     const kvResult = await kv.get(ctx.guildID!);
