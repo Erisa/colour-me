@@ -2583,6 +2583,15 @@ slash-create@^5.4.1:
     lodash.isequal "^4.5.0"
     tweetnacl "^1.0.3"
 
+slash-create@^5.5.2:
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/slash-create/-/slash-create-5.5.2.tgz#f07f3c31dd11683ad6a22663f82899cfbf9db834"
+  integrity sha512-w4S8P+nPWo94ZITRluxRmVZVEFZveexQct83P/gr6HgnskrF+1Of+e3/RPYxx6F4aY/AwL8xvbhJ1m5Ue5d1MA==
+  dependencies:
+    eventemitter3 "^4.0.7"
+    lodash.isequal "^4.5.0"
+    tweetnacl "^1.0.3"
+
 slash-up@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/slash-up/-/slash-up-1.1.0.tgz#fd0670fe25c11ff1721a3f89c5d4092eccd415b7"
