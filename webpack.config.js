@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
   output: {
     filename: 'worker.js',
-    path: path.join(__dirname, 'dist')
+    path: path.join(__dirname, 'dist'),
+    devtoolModuleFilenameTemplate: '[absolute-resource-path]'
   },
   mode: 'production',
   resolve: {
@@ -28,5 +29,6 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  devtool: 'cheap-module-source-map'
 };
