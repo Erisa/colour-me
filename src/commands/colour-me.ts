@@ -23,6 +23,7 @@ export default class BotCommand extends SlashCommand {
           options: [
             {
               type: CommandOptionType.STRING,
+              required: true,
               name: 'hexcode',
               description: 'An RGB hex code for the colour you want to set.'
             }
@@ -128,7 +129,7 @@ export default class BotCommand extends SlashCommand {
 
         const colourInt: number = parseInt(hexcolour, 16);
 
-        if (colourInt > 16777215) {
+        if (colourInt <= 0 || colourInt > 16777215) {
           return 'The given hex code is invalid!';
         }
 
