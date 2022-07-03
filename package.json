@@ -11,6 +11,7 @@
     "sync": "slash-up sync",
     "sync:dev": "slash-up sync -e development",
     "lint": "eslint --ext .ts .",
+    "lint:ci": "eslint --max-warnings=0 --ext .ts .",
     "lint:fix": "eslint --ext .ts . --fix",
     "postinstall": "patch-package"
   },

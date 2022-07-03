@@ -1,0 +1,22 @@
+name: ESLint
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      name: Setup Node.js
+      with:
+        node-version: '16'
+        cache: 'yarn'
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    - name: Run ESLint
+      run: yarn lint:ci
