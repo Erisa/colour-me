@@ -7,25 +7,23 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
     name: Worker Deploy
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v3.0.0
-        name: Install deps
-        with:
-          cmd: install --frozen-lockfile
-      - uses: borales/actions-yarn@v3.0.0
-        name: Sync commands to Discord 
-        env:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      name: Setup Node.js
+      env:
           DISCORD_APP_ID: ${{ secrets.DISCORD_APP_ID }}
           DISCORD_PUBLIC_KEY: ${{ secrets.DISCORD_PUBLIC_KEY }}
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-        with:
-          cmd: sync
-      - uses: borales/actions-yarn@v3.0.0
-        name: Publish to Cloudflare
-        env:
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-        with:
-          cmd: deploy
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+      with:
+        node-version: '16'
+        cache: 'yarn'
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    - name: Sync commands to Discord
+      run: yarn sync
+    - name: Deploy Worker to Cloudflare
+      run: yarn deploy

@@ -8,5 +8,8 @@ kv_namespaces = [
   { binding = "kv", id = "3fa45528f5da42cca249d355e318f0e4", preview_id = "3fa45528f5da42cca249d355e318f0e4" }
 ]
 
+[build]
+command = "yarn build"
+
 [dev]
 port = 8020
