@@ -91,6 +91,7 @@ export default class BotCommand extends SlashCommand {
           roles: false
         }
       });
+      return;
     }
 
     switch (ctx.subcommands[0]) {
