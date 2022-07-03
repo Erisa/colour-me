@@ -76,8 +76,8 @@ npm install
 > Make sure to [sign up for a Cloudflare Workers account](https://dash.cloudflare.com/sign-up/workers) in a browser before continuing.
 Install wrangler with npm or yarn:
 ```sh
-npm install -g @cloudflare/wrangler
-# yarn global add @cloudflare/wrangler
+npm install -D wrangler@latest
+# yarn global add wrangler@latest
 ```
 Read more about [installing wrangler](https://developers.cloudflare.com/workers/cli-wrangler/install-update).
 
@@ -91,22 +91,15 @@ Copy `wrangler.example.toml` into `wrangler.toml`. Make sure to fill in your acc
 ### Filling in secrets
 You can enter in environment secrets with `wrangler secret put`, here are the keys that are required to run this:
 ```sh
-wrangler secret put DISCORD_APP_ID
-wrangler secret put DISCORD_PUBLIC_KEY
-wrangler secret put DISCORD_BOT_TOKEN
+npx wrangler secret put DISCORD_APP_ID
+npx wrangler secret put DISCORD_PUBLIC_KEY
+npx wrangler secret put DISCORD_BOT_TOKEN
 ```
-
-For a development environment using wrangler, you can also include `DEVELOPMENT_GUILD_ID` for commands to be updated in that guild live
-```sh
-wrangler secret put DISCORD_APP_ID -e development
-wrangler secret put DISCORD_PUBLIC_KEY -e development
-wrangler secret put DISCORD_BOT_TOKEN -e development
-wrangler secret put DEVELOPMENT_GUILD_ID -e development
-```
-> If an error occurs when trying to create a worker to put the secret in, create a worker manually in the dashboard and set the subdomain. It will be overwritten later.
 
 ### Development
-You can run `npm run dev` to start a development environment and use something like ngrok to tunnel it to a URL. To sync commands, copy `.env.example` to `development.env` and fill in the variables, then run `npm run sync:dev`.
+To run this locally, copy `.env.example` to `.dev.vars` and fill in the variables, then you can run `npm run dev` (or `yarn dev`) to start a local dev environment and use something like ngrok to tunnel it to a URL.
+
+To sync commands in the development environment, copy `.env.example` to `development.env` and fill in the variables, then run `npm run sync:dev` (or `yarn sync:dev`).
 
 > Note: When you create a command, make sure to include it in the array of commands in `./src/commands/index.ts`.
 
