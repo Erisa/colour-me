@@ -1,6 +1,8 @@
 /* eslint-disable no-case-declarations */
 import { SlashCommand, CommandOptionType, SlashCreator, CommandContext } from 'slash-create';
 
+import { locale } from '../localisation';
+
 // eslint-disable-next-line no-undef
 declare const kv: KVNamespace;
 declare const DISCORD_APP_ID: string;
@@ -8,24 +10,42 @@ declare const DISCORD_APP_ID: string;
 export default class BotCommand extends SlashCommand {
   constructor(creator: SlashCreator) {
     super(creator, {
-      name: 'colour-me',
-      description: 'Change the colour of your role, if configured!',
+      name: locale.t('colour-me'),
+      nameLocalizations: {
+        'en-US': locale.t('colour-me', { lng: 'en-US' })
+      },
+      description: locale.t('colour-me-desc'),
+      descriptionLocalizations: {
+        'en-US': locale.t('colour-me-desc', { lng: 'en-US' })
+      },
       options: [
         {
           type: CommandOptionType.SUB_COMMAND,
-          name: 'random',
-          description: 'Set a random colour'
+          name: locale.t('random'),
+          description: locale.t('set-a-random-colour'),
+          description_localizations: {
+            'en-US': locale.t('set-a-random-colour', { lng: 'en-US' })
+          }
         },
         {
           type: CommandOptionType.SUB_COMMAND,
-          name: 'colour',
-          description: 'Set a specific colour',
+          name: locale.t('colour'),
+          name_localizations: {
+            'en-US': locale.t('colour', { lng: 'en-US' })
+          },
+          description: locale.t('set-a-specific-colour'),
+          description_localizations: {
+            'en-US': locale.t('set-a-specific-colour', { lng: 'en-US' })
+          },
           options: [
             {
               type: CommandOptionType.STRING,
               required: true,
-              name: 'hexcode',
-              description: 'An RGB hex code for the colour you want to set.'
+              name: locale.t('hexcode'),
+              description: locale.t('hexcode-desc'),
+              description_localizations: {
+                'en-US': locale.t('hexcode-desc', { lng: 'en-US' })
+              }
             }
           ]
         }
@@ -48,7 +68,7 @@ export default class BotCommand extends SlashCommand {
     });
 
     if (memberColourRoles.length == 0) {
-      return "You don't have any coloured roles!\nTo use this command you need a coloured role that has colour-me enabled by an admin.";
+      return locale.t('you-dont-have-any-coloured-roles', { lng: ctx.locale });
     }
 
     const topColouredRole: any = memberColourRoles.sort((firstRole: any, secondRole: any) => {
@@ -57,7 +77,7 @@ export default class BotCommand extends SlashCommand {
 
     if (!roleList.includes(topColouredRole['id'])) {
       await ctx.send({
-        content: `Your highest coloured role is not enabled for colour-me!\nAn admin needs to use \`/colour-role add\` for <@&${topColouredRole['id']}>`,
+        content: locale.t('your-highest-coloured-role-not-enabled', { roleid: topColouredRole['id'], lng: ctx.locale }),
         allowedMentions: {
           everyone: false,
           users: false,
@@ -84,7 +104,7 @@ export default class BotCommand extends SlashCommand {
 
     if (botTopRole['position'] < topColouredRole['position']) {
       await ctx.send({
-        content: `I don't have permission to access your top coloured role!\nMake sure my top role is above <@&${topColouredRole['id']}>!`,
+        content: locale.t('no-permission', { lng: ctx.locale, roleid: topColouredRole['id'] }),
         allowedMentions: {
           everyone: false,
           users: false,
@@ -95,7 +115,7 @@ export default class BotCommand extends SlashCommand {
     }
 
     switch (ctx.subcommands[0]) {
-      case 'random':
+      case locale.t('random', { lng: ctx.locale }):
         const newColour = Math.floor(Math.random() * 16777214) + 1;
 
         await ctx.creator.requestHandler.request(
@@ -108,15 +128,15 @@ export default class BotCommand extends SlashCommand {
         );
 
         await ctx.send({
-          content: `Okay, I changed the colour of <@&${topColouredRole['id']}> to a random colour!`,
+          content: locale.t('okay-i-changed-random', { lng: ctx.locale, roleid: topColouredRole['id'] }),
           allowedMentions: {
             everyone: false,
             users: false,
             roles: false
           }
         });
-        break;
-      case 'colour':
+        return;
+      case locale.t('colour', { lng: ctx.locale }):
         let hexcolour: string = ctx.options[ctx.subcommands[0]].hexcode;
         hexcolour = hexcolour.toLowerCase();
 
@@ -125,13 +145,13 @@ export default class BotCommand extends SlashCommand {
         }
 
         if (!/^#?[0-9a-f]{6}$/i.test(hexcolour)) {
-          return "That doesn't look like a hex code!";
+          return locale.t('not-a-hex-code', { lng: ctx.locale });
         }
 
         const colourInt: number = parseInt(hexcolour, 16);
 
         if (colourInt <= 0 || colourInt > 16777215) {
-          return 'The given hex code is invalid!';
+          return locale.t('invalid-hex-code', { lng: ctx.locale });
         }
 
         await ctx.creator.requestHandler.request(
@@ -144,14 +164,20 @@ export default class BotCommand extends SlashCommand {
         );
 
         await ctx.send({
-          content: `Okay, I changed the colour of <@&${topColouredRole['id']}> to \`${colourInt.toString(16)}\`!`,
+          content: locale.t('okay-i-changed-specific', {
+            lng: ctx.locale,
+            roleid: topColouredRole['id'],
+            colour: colourInt.toString(16)
+          }),
           allowedMentions: {
             everyone: false,
             users: false,
             roles: false
           }
         });
-        break;
+        return;
     }
+
+    return 'An unknown error ocurred processing this command. Please contact the developer.';
   }
 }

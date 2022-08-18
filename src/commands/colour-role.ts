@@ -1,25 +1,45 @@
 /* eslint-disable no-case-declarations */
-import { SlashCommand, CommandOptionType, SlashCreator, CommandContext } from 'slash-create';
+import { SlashCommand, CommandOptionType, SlashCreator, CommandContext, ComponentContext } from 'slash-create';
 
 // eslint-disable-next-line no-undef
 declare const kv: KVNamespace;
 
+import { locale } from '../localisation';
+
 export default class BotCommand extends SlashCommand {
   constructor(creator: SlashCreator) {
     super(creator, {
-      name: 'colour-role',
-      description: 'Manage the colour role list for this server!',
+      name: locale.t('colour-role'),
+      nameLocalizations: {
+        'en-US': locale.t('colour-role', { lng: 'en-US' })
+      },
+      description: locale.t('colour-role-desc'),
+      descriptionLocalizations: {
+        'en-US': locale.t('colour-role-desc', { lng: 'en-US' })
+      },
       defaultPermission: false,
       requiredPermissions: ['MANAGE_ROLES'],
       options: [
         {
           type: CommandOptionType.SUB_COMMAND,
-          name: 'add',
-          description: 'Add a colour role to the allowed list',
+          name: locale.t('add'),
+          name_localizations: {
+            'en-US': locale.t('add', { lng: 'en-US' })
+          },
+          description: locale.t('add-desc'),
+          description_localizations: {
+            'en-US': locale.t('add-desc', { lng: 'en-US' })
+          },
           options: [
             {
-              name: 'role',
-              description: 'Role to add to list',
+              name: locale.t('role'),
+              name_localizations: {
+                'en-US': locale.t('role', { lng: 'en-US' })
+              },
+              description: locale.t('role-add-desc'),
+              description_localizations: {
+                'en-US': locale.t('role-add-desc', { lng: 'en-US' })
+              },
               type: CommandOptionType.ROLE,
               required: true
             }
@@ -27,12 +47,24 @@ export default class BotCommand extends SlashCommand {
         },
         {
           type: CommandOptionType.SUB_COMMAND,
-          name: 'remove',
-          description: 'Remove a colour role from the allowed list',
+          name: locale.t('remove'),
+          name_localizations: {
+            'en-US': locale.t('remove', { lng: 'en-US' })
+          },
+          description: locale.t('remove-desc'),
+          description_localizations: {
+            'en-US': locale.t('remove-desc', { lng: 'en-US' })
+          },
           options: [
             {
               name: 'role',
-              description: 'Role to remove from list',
+              name_localizations: {
+                'en-US': locale.t('role', { lng: 'en-US' })
+              },
+              description: locale.t('role-remove-desc'),
+              description_localizations: {
+                'en-US': locale.t('role-remove-desc', { lng: 'en-US' })
+              },
               type: CommandOptionType.ROLE,
               required: true
             }
@@ -40,8 +72,14 @@ export default class BotCommand extends SlashCommand {
         },
         {
           type: CommandOptionType.SUB_COMMAND,
-          name: 'list',
-          description: 'Show all the configured colour roles'
+          name: locale.t('list'),
+          name_localizations: {
+            'en-US': locale.t('list', { lng: 'en-US' })
+          },
+          description: locale.t('role-list-desc'),
+          description_localizations: {
+            'en-US': locale.t('role-list-desc', { lng: 'en-US' })
+          }
         }
       ]
     });
@@ -61,17 +99,17 @@ export default class BotCommand extends SlashCommand {
     let embedcontent: string = '';
 
     switch (ctx.subcommands[0]) {
-      case 'add':
+      case locale.t('add', { lng: ctx.locale }):
         if (roleList.includes(roleId)) {
           ctx.send({
-            content: `The role <@&${roleId}> is already in the colour role list!`,
+            content: locale.t('role-already-in-list', { lng: ctx.locale, roleid: roleId }),
             ephemeral: true
           });
         } else {
           roleList.push(roleId);
           await kv.put(ctx.guildID!, JSON.stringify(roleList));
           await ctx.send({
-            content: `I've added <@&${roleId}> to the colour role list!`,
+            content: locale.t('role-added-to-list', { lng: ctx.locale, roleid: roleId }),
             allowedMentions: {
               everyone: false,
               users: false,
@@ -80,12 +118,12 @@ export default class BotCommand extends SlashCommand {
           });
         }
         break;
-      case 'remove':
+      case locale.t('remove', { lng: ctx.locale }):
         if (roleList.includes(roleId)) {
           roleList.splice(roleList.indexOf(roleId), 1);
           await kv.put(ctx.guildID!, JSON.stringify(roleList));
           await ctx.send({
-            content: `I've removed <@&${roleId}> from the colour role list!`,
+            content: locale.t('role-removed-from-list', { lng: ctx.locale, roleid: roleId }),
             allowedMentions: {
               everyone: false,
               users: false,
@@ -94,14 +132,14 @@ export default class BotCommand extends SlashCommand {
           });
         } else {
           ctx.send({
-            content: `The role <@&${roleId}> wasn't on the colour role list!`,
+            content: locale.t('role-not-in-list', { lng: ctx.locale, roleid: roleId }),
             ephemeral: true
           });
         }
         break;
-      case 'list':
+      case locale.t('list', { lng: ctx.locale }):
         if (roleList.length === 0) {
-          ctx.send('There are no configured colour roles for this server.\nAdd some with `/colour-role add`!');
+          ctx.send(locale.t('role-list-empty', { lng: ctx.locale }));
           return;
         }
 
@@ -121,7 +159,7 @@ export default class BotCommand extends SlashCommand {
         await kv.put(ctx.guildID!, JSON.stringify(roleList));
 
         ctx.send({
-          content: 'These are all the configured roles.',
+          content: locale.t('role-list-header', { lng: ctx.locale }),
           embeds: [
             {
               description: embedcontent
