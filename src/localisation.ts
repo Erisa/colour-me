@@ -20,6 +20,6 @@ locale.init({
   resources
 });
 
-console.log(locale.t('colour-me', { lng: 'en-GB' }))
+console.log(locale.t('colour-me', { lng: 'en-GB' }));
 
 export { locale };

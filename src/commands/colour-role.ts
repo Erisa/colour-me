@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { SlashCommand, CommandOptionType, SlashCreator, CommandContext, ComponentContext } from 'slash-create';
+import { SlashCommand, CommandOptionType, SlashCreator, CommandContext } from 'slash-create';
 
 // eslint-disable-next-line no-undef
 declare const kv: KVNamespace;
