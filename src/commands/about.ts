@@ -52,7 +52,7 @@ Made with 💝 by [Erisa](https://erisa.uk) and the help of her wonderful friend
         {
           author: {
             name: 'Colour me!',
-            icon_url: 'https://pb.erisa.workers.dev/Gr58.png'
+            icon_url: 'https://up.erisa.uk/colour-me-icon.png'
           },
           description: aboutText,
           color: 16738740
