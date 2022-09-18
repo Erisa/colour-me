@@ -114,8 +114,8 @@ export default class BotCommand extends SlashCommand {
       return;
     }
 
-    console.log(ctx.subcommands[0])
-    console.log(locale.t('colour', { lng: ctx.locale }))
+    console.log(ctx.subcommands[0]);
+    console.log(locale.t('colour', { lng: ctx.locale }));
 
     switch (ctx.subcommands[0]) {
       case locale.t('random'):
