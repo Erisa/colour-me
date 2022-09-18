@@ -114,8 +114,11 @@ export default class BotCommand extends SlashCommand {
       return;
     }
 
+    console.log(ctx.subcommands[0])
+    console.log(locale.t('colour', { lng: ctx.locale }))
+
     switch (ctx.subcommands[0]) {
-      case locale.t('random', { lng: ctx.locale }):
+      case locale.t('random'):
         const newColour = Math.floor(Math.random() * 16777214) + 1;
 
         await ctx.creator.requestHandler.request(
@@ -136,7 +139,7 @@ export default class BotCommand extends SlashCommand {
           }
         });
         return;
-      case locale.t('colour', { lng: ctx.locale }):
+      case locale.t('colour'):
         let hexcolour: string = ctx.options[ctx.subcommands[0]].hexcode;
         hexcolour = hexcolour.toLowerCase();
 

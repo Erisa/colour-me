@@ -99,7 +99,7 @@ export default class BotCommand extends SlashCommand {
     let embedcontent: string = '';
 
     switch (ctx.subcommands[0]) {
-      case locale.t('add', { lng: ctx.locale }):
+      case locale.t('add'):
         if (roleList.includes(roleId)) {
           ctx.send({
             content: locale.t('role-already-in-list', { lng: ctx.locale, roleid: roleId }),
@@ -118,7 +118,7 @@ export default class BotCommand extends SlashCommand {
           });
         }
         break;
-      case locale.t('remove', { lng: ctx.locale }):
+      case locale.t('remove'):
         if (roleList.includes(roleId)) {
           roleList.splice(roleList.indexOf(roleId), 1);
           await kv.put(ctx.guildID!, JSON.stringify(roleList));
@@ -137,7 +137,7 @@ export default class BotCommand extends SlashCommand {
           });
         }
         break;
-      case locale.t('list', { lng: ctx.locale }):
+      case locale.t('list'):
         if (roleList.length === 0) {
           ctx.send(locale.t('role-list-empty', { lng: ctx.locale }));
           return;
