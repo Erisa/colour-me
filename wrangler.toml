@@ -1,6 +1,7 @@
 name = "colour-me-discord"
 main = "dist/worker.js"
 compatibility_date = "2021-12-20"
+logpush = true
 
 vars = { DISCORD_PUBLIC_KEY = "6dbc62c05fbdb5e5c25180a5baaab5cb5ad367323b31497c077171dd6f967fc4", DISCORD_APP_ID = "702660517617205248" }
 
