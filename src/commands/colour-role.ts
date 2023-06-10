@@ -106,18 +106,15 @@ export default class BotCommand extends SlashCommand {
             ephemeral: true
           });
         } else {
-          var roles: RoleColourStub[] = await ctx.creator.requestHandler.request(
-            'GET',
-            `/guilds/${ctx.guildID}/roles`
-          );
+          var roles: RoleColourStub[] = await ctx.creator.requestHandler.request('GET', `/guilds/${ctx.guildID}/roles`);
 
-          var role = roles.find(role => role.id == roleId)
+          var role = roles.find((role) => role.id == roleId);
 
           if (!role) {
             await ctx.send({
               content: locale.t('role-error-rare', { lng: ctx.locale }),
               ephemeral: true
-            })
+            });
             return;
           } else if (role.color == 0) {
             await ctx.send({
@@ -127,8 +124,7 @@ export default class BotCommand extends SlashCommand {
                 users: false,
                 roles: false
               }
-            }
-            )
+            });
             return;
           }
 
