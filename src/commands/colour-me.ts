@@ -121,14 +121,21 @@ export default class BotCommand extends SlashCommand {
       case locale.t('random'):
         const newColour = Math.floor(Math.random() * 16777214) + 1;
 
-        await ctx.creator.requestHandler.request(
-          'PATCH',
-          `/guilds/${ctx.guildID}/roles/${topColouredRole['id']}`,
-          true,
-          {
-            color: newColour
-          }
-        );
+        try {
+          await ctx.creator.requestHandler.request(
+            'PATCH',
+            `/guilds/${ctx.guildID}/roles/${topColouredRole['id']}`,
+            true,
+            {
+              color: newColour
+            }
+          );
+        } catch (e) {
+          ctx.send(locale.t('error-no-permission', { lng: ctx.locale }) + '```\n' + (e as Error).message + '```');
+          ctx.send((e as Error).message);
+          console.error((e as Error).stack);
+          return;
+        }
 
         await ctx.send({
           content: locale.t('okay-i-changed-random', { lng: ctx.locale, roleid: topColouredRole['id'] }),
